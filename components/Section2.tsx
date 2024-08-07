@@ -6,7 +6,16 @@ import { motion, MotionValue, useTransform } from "framer-motion";
 import LeftImage from "@/public/images/section2_1.jpeg";
 import RightImage from "@/public/images/section2_2.jpeg";
 
-const imageArr = [
+interface IHoverItem {
+    index: number | null;
+    isHovered: boolean;
+}
+interface IImages {
+    src: string;
+    alt: string;
+
+}
+const imageArr: IImages[] = [
     {
         src: LeftImage,
         alt: 'Image1',
@@ -19,12 +28,11 @@ const imageArr = [
 const Section2 = ({scrollYProgress}: { scrollYProgress: MotionValue<number> }) => {
     const scale = useTransform(scrollYProgress, [0, 1], [0.8, 1]);
     const rotate = useTransform(scrollYProgress, [0, 1], [5, 0])
-    const [hoverItem, setHoverItem] = useState({
+    const [hoverItem, setHoverItem] = useState<IHoverItem>({
         index: null,
         isHovered: false,
     })
-    const handleMouseEnter = (i) => {
-        console.log('mouseEnter', i)
+    const handleMouseEnter = (i: number) => {
         setHoverItem({
             index: i,
             isHovered: true
@@ -51,15 +59,18 @@ const Section2 = ({scrollYProgress}: { scrollYProgress: MotionValue<number> }) =
                 </p>
             </div>
             <div className={styles.section2_images}>
-                {imageArr.map((img, i) => (
-                    <Image
-                        onMouseEnter={() => handleMouseEnter(i)}
-                        onMouseLeave={handleMouseLeave}
-                        src={img.src}
-                        alt={img.alt}
-                        className={hoverItem.index === null ? styles.default : hoverItem.index === i && hoverItem.isHovered ? styles.hovering : styles.noHovering}
-                    />
-                ))}
+                {imageArr.map((img, i) => {
+                    console.log(img.src)
+                    return (
+                        <Image
+                            onMouseEnter={() => handleMouseEnter(i)}
+                            onMouseLeave={handleMouseLeave}
+                            src={img.src}
+                            alt={img.alt}
+                            className={hoverItem.index === null ? styles.default : hoverItem.index === i && hoverItem.isHovered ? styles.hovering : styles.noHovering}
+                        />
+                    )
+                })}
             </div>
             <span className={`${styles.caption} caption`}>DiiVER 쇼룸 : (좌)문, (우)다이빙대</span>
             <div className={styles.section2_info}>
