@@ -6,7 +6,7 @@ import { useScroll, motion } from "framer-motion";
 import { data } from "@/constans/data";
 
 const Item = ({ children, color }: { children?: ReactNode, color?: string }) => {
-    const container = useRef();
+    const container = useRef(null);
     const { scrollYProgress } = useScroll({
         target: container,
         offset: ["end end", "start start"]
