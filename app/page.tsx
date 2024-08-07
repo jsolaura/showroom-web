@@ -5,6 +5,8 @@ import { useScroll } from "framer-motion";
 import Lenis from "lenis";
 import Section1 from "@/components/Section1";
 import Section2 from "@/components/Section2";
+import Section3 from "@/components/Section3";
+import Section4 from "@/components/Section4";
 
 declare global {
     interface Window {
@@ -31,6 +33,8 @@ export default function Home() {
             <Section1 scrollYProgress={scrollYProgress} />
             <Section2 scrollYProgress={scrollYProgress} />
         </div>
+        <Section3 />
+        <Section4 />
         </>
     );
 }
