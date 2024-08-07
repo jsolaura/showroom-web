@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styles from "@/app/page.module.css";
-import Image from "next/image";
+import Image, {StaticImageData} from "next/image";
 import Link from "next/link";
 import { motion, MotionValue, useTransform } from "framer-motion";
 import LeftImage from "@/public/images/section2_1.jpeg";
@@ -11,7 +11,7 @@ interface IHoverItem {
     isHovered: boolean;
 }
 interface IImages {
-    src: string;
+    src: string | StaticImageData;
     alt: string;
 
 }
@@ -59,18 +59,15 @@ const Section2 = ({scrollYProgress}: { scrollYProgress: MotionValue<number> }) =
                 </p>
             </div>
             <div className={styles.section2_images}>
-                {imageArr.map((img, i) => {
-                    console.log(img.src)
-                    return (
-                        <Image
-                            onMouseEnter={() => handleMouseEnter(i)}
-                            onMouseLeave={handleMouseLeave}
-                            src={img.src}
-                            alt={img.alt}
-                            className={hoverItem.index === null ? styles.default : hoverItem.index === i && hoverItem.isHovered ? styles.hovering : styles.noHovering}
-                        />
-                    )
-                })}
+                {imageArr.map((img, i) => (
+                    <Image
+                        onMouseEnter={() => handleMouseEnter(i)}
+                        onMouseLeave={handleMouseLeave}
+                        src={img.src}
+                        alt={img.alt}
+                        className={hoverItem.index === null ? styles.default : hoverItem.index === i && hoverItem.isHovered ? styles.hovering : styles.noHovering}
+                    />
+                ))}
             </div>
             <span className={`${styles.caption} caption`}>DiiVER 쇼룸 : (좌)문, (우)다이빙대</span>
             <div className={styles.section2_info}>
